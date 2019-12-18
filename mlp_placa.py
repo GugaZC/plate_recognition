@@ -23,9 +23,6 @@ y_treino=[]
 c = 0
 log_dir="logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=0)
-# STAMP = 'simple_lstm_glove_vectors_%.2f_%.2f'%(rate_drop_lstm,rate_drop_dense)
-# bst_model_path = STAMP + '.h5'
-# model_checkpoint = ModelCheckpoint(bst_model_path, save_best_only=True, save_weights_only=True)
 
 caracteres = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
               'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
@@ -65,10 +62,8 @@ model.add(tf.keras.layers.Dense(128, activation = tf.nn.relu))
 model.add(tf.keras.layers.Dense(64, activation = tf.nn.relu))
 model.add(tf.keras.layers.Dense(ncls, activation = tf.nn.softmax))
 
-# sgd = SGD(lr=1e-3)
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics = ['acc'])
 
-# model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
 
 def save_weights(model):
     model_json = model.to_json()
@@ -82,10 +77,7 @@ def load_weights(model):
     print("Pesos carregados com sucesso!!!")
 
 def treinar_rede():
-    # filepath="~/PycharmProjects/IAII/IAII/weights.best.h5"
-    # filepathAtual="~/PycharmProjects/IAII/IAII/weights.current.hdf5"
     checkpoint = ModelCheckpoint('best.h5', verbose=1, monitor='acc', save_best_only=True, mode='auto')
-    # tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
     model.fit(x_treino, y_treino, epochs = 1000, verbose = 2, callbacks=[checkpoint, tensorboard_callback], shuffle=False)
 
 def Verificar_Placa(placa, img):
