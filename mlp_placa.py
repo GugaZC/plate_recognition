@@ -116,7 +116,7 @@ def main():
     print('3 - Salvar pesos sinapticos')
     print('4 - Carregar pesos sinapticos')
     print('5 - Mostrar pesos sinapticos')
-    print('10 - Sair do sistema')
+    print('10 - Sair do sistema ')
 
     x = input()
     if x == '1':
